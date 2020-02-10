@@ -1,0 +1,13 @@
+// Initializes the pong game 
+
+class Main
+{
+	function void main()
+	{
+		var Pong game;
+		let game = Pong.new();
+		do game.run_game();
+		do game.dispose();
+		return;
+	}
+}

@@ -1,0 +1,82 @@
+/** Pong Game class that runs the whole game. */
+class Pong{
+
+	field Paddle paddle_object;
+
+	field int paddle_direction; // Direction of paddle
+
+	//field Ball ball_object;    // Pong game objects;
+//
+	field int ball_direction; // Direction of ball.1 move left, 2 move right
+
+
+
+// construct the paddle with the default values. Position at the bottom left corner. defalut size is 30
+	constructor Pong(){	
+		let paddle_object = Paddle.new(580,0,30);
+
+		let paddle_direction = 0;
+
+		//let ball_object = Ball.new();
+
+	}
+
+
+
+
+	 // Disposes of the game
+
+	method void dispose(){
+		do paddle_object.dispose();
+		do Memory.dealloc(this);
+	}
+
+
+
+
+ // Moves the square by taking advantage of the move square method in the Paddle class
+
+	method move_paddle(){
+		if(paddle_direction = 1){
+			paddle_object.move_left();
+		}
+		if(paddle_direction = 1){
+			paddle_object.move_right();
+		}
+
+		return;
+	}
+
+
+
+	//method move_ball(); // Moves the ball. Will need extensive calculations to run this
+
+	// runner of the game
+	method run_game(){
+		var char key; // variable for the key currently pressed by the user;
+		var boolean exit; // exit condition
+		let exit = false;
+
+		while(~exit){
+			// wait for 5 seconds and then listen to the key being pressed
+			do Sys.wait(500);
+
+			let key = Keyboard.keyPressed;
+			if(key = 81){
+				let exit = true
+			}
+			if(key = 132){
+				direction = 2;
+			}
+			if(key = 130){
+				direction = 1;
+			}
+
+			do moveSquare();
+
+		}
+
+		return;
+	}
+
+}

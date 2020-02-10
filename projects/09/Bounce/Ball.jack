@@ -1,0 +1,87 @@
+// This is the ball object. It will consist of an x_velocity, y_velocity, x_cord,y_cord and size components
+
+class Ball
+{
+	field int x_cord;
+	field int y_cord;
+	field int radius;
+	field int x_velocity;
+	field int y_velocity;
+
+	constructor Ball new(int x_in, int y_in, int radx, int x_vel, int y_vel)
+	{
+		let x_cord = x_in;
+		let y_cord = y_in;
+		let radius = radx;
+		let x_velocity = x_vel;
+		let y_velocity = y_vel;
+		return this;
+	}
+
+	method void dispose()
+	{
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void draw()
+	{
+		do Screen.setColor(true);
+		do Screen.drawCircle(x_cord,y_cord,radius);
+		return;
+	}
+
+	method void erase()
+	{
+		do Screen.setColor(false);
+		do Screen.drawCircle(x_cord,y_cord,radius);
+		return;
+	}
+
+	method int return_x()
+	{
+		return x_cord;
+	}
+
+	method int return_y()
+	{
+		return y_cord;
+	}
+
+	method void move_ball()
+	{
+		var int temp_x;
+		var int temp_y;
+
+		let temp_x = x_cord;
+		let temp_y = y_cord;
+
+		let temp_x = temp_x + x_velocity;
+		let temp_y = temp_y + y_velocity;
+
+		if((temp_x < radius) | (temp_x > (509 - radius)))
+		{
+			let x_velocity = Math.multiply(x_velocity,-1);
+			do Screen.setColor(true);
+			//do Output.printInt(x_velocity);
+			let x_cord = x_cord + x_velocity;
+		}
+		else
+		{
+		  let x_cord = temp_x;
+		}
+
+		if((temp_y < radius) | (temp_y > (253 - radius)))
+		{ 
+			let y_velocity = Math.multiply(y_velocity,-1);
+			let y_cord = y_cord + y_velocity;
+		}
+		else
+		{
+		  let y_cord = temp_y;
+		}
+
+		return;
+	}
+
+}

@@ -1,0 +1,128 @@
+// Pong Game class that runs the whole game. 
+
+
+
+class Pong
+{
+
+	field Paddle paddle_object;
+
+	field int paddle_direction; // Direction of paddle
+
+	field Ball ball_object;    // Pong game objects;
+	//field int ball_direction; // Direction of ball.1 move left, 2 move right
+
+
+// construct the paddle with the default values. Position at the bottom left corner. defalut size is 30
+	constructor Pong new()
+	{	
+		let paddle_object = Paddle.new(0,0,30);
+		let paddle_direction = 0;
+
+		let ball_object = Ball.new(50,50,5,1,-2);
+		return this;
+
+	}
+
+	 // Disposes of the game
+	method void dispose()
+	{
+		do paddle_object.dispose();
+		do Memory.dealloc(this);
+		return;
+	}
+
+ // Moves the square by taking advantage of the move square method in the Paddle class
+	method void move_paddle()
+	{
+		if(paddle_direction = 1)
+		{
+			do paddle_object.move_up();
+		}
+		if(paddle_direction = 2)
+		{
+			do paddle_object.move_down();
+		}
+
+		return;
+	}
+
+	method void move_ball()
+	{
+		
+		var int paddle_x;
+		var int paddle_y;
+		var int paddle_size;
+
+		var int ball_x;
+		var int ball_y;
+		var int ball_radius;
+
+
+		let paddle_x = paddle_object.return_x();
+		let paddle_y = paddle_object.return_y();
+		let paddle_size = paddle_object.return_size();
+
+		let ball_x = ball_object.return_x() - 5;
+		let ball_y = ball_object.return_y();
+		let ball_radius = ball_object.return_radius();
+
+		if(paddle_x + 30 > ball_x)
+		{
+			if(((ball_y > paddle_y)|(ball_y = paddle_y)) & ((ball_y < paddle_y + 30)|(ball_y = paddle_y + 30)))
+		  {
+		    do ball_object.bounce_ball();
+		    do ball_object.move_ball();
+		   // do ball_object.draw();
+		    return;
+		  }
+		  else
+		  {
+		  	do ball_object.move_ball();
+		  	//do ball_object.draw();
+		  	return;
+		  }
+		}
+		else
+		{
+		  do ball_object.move_ball();
+		  //do ball_object.draw();
+		  return;
+		}
+
+	}
+
+	//method move_ball() Moves the ball. Will need extensive calculations to run this
+
+	method void run_game()
+	{
+		var char key; // variable for the key currently pressed by the user;
+		var boolean exit; // exit condition
+		let exit = false;
+		while(~exit)
+		{
+			// wait for 5 seconds and then listen to the key being pressed
+			do Sys.wait(5);
+			do ball_object.erase();
+			do move_ball();
+			do ball_object.draw();
+			let key = Keyboard.keyPressed();
+			if(key = 81){
+				let exit = true;
+			}
+			if(key = 131)
+			{
+				let paddle_direction = 1;
+			}
+			if(key = 133){
+				let paddle_direction = 2;
+			}
+
+			do move_paddle();
+
+		}
+
+		return;
+	}
+
+}

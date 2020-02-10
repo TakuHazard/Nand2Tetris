@@ -1,0 +1,193 @@
+function Pong.new 0
+push constant 3
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+push constant 0
+push constant 30
+call Paddle.new 3
+pop this 0
+push constant 0
+pop this 1
+push constant 50
+push constant 50
+push constant 5
+push constant 1
+push constant 2
+neg
+call Ball.new 5
+pop this 2
+push pointer 0
+return
+function Pong.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Paddle.dispose 1
+pop temp 0
+push pointer 0
+call Memory.dealloc 1
+pop temp 0
+push constant 0
+return
+function Pong.move_paddle 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+call Paddle.move_up 1
+pop temp 0
+label IF_FALSE0
+push this 1
+push constant 2
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+call Paddle.move_down 1
+pop temp 0
+label IF_FALSE1
+push constant 0
+return
+function Pong.move_ball 6
+push argument 0
+pop pointer 0
+push this 0
+call Paddle.return_x 1
+pop local 0
+push this 0
+call Paddle.return_y 1
+pop local 1
+push this 0
+call Paddle.return_size 1
+pop local 2
+push this 2
+call Ball.return_x 1
+push constant 5
+sub
+pop local 3
+push this 2
+call Ball.return_y 1
+pop local 4
+push this 2
+call Ball.return_radius 1
+pop local 5
+push local 0
+push constant 30
+add
+push local 3
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 4
+push local 1
+gt
+push local 4
+push local 1
+eq
+or
+push local 4
+push local 1
+lt
+push constant 30
+add
+push local 4
+push local 1
+eq
+push constant 30
+add
+or
+and
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 2
+call Ball.bounce_ball 1
+pop temp 0
+push this 2
+call Ball.move_ball 1
+pop temp 0
+push constant 0
+return
+goto IF_END1
+label IF_FALSE1
+push this 2
+call Ball.move_ball 1
+pop temp 0
+push constant 0
+return
+label IF_END1
+goto IF_END0
+label IF_FALSE0
+push this 2
+call Ball.move_ball 1
+pop temp 0
+push constant 0
+return
+label IF_END0
+function Pong.run_game 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+label WHILE_EXP0
+push local 1
+not
+not
+if-goto WHILE_END0
+push constant 5
+call Sys.wait 1
+pop temp 0
+push this 2
+call Ball.erase 1
+pop temp 0
+push pointer 0
+call Pong.move_ball 1
+pop temp 0
+push this 2
+call Ball.draw 1
+pop temp 0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 81
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 1
+label IF_FALSE0
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+pop this 1
+label IF_FALSE1
+push local 0
+push constant 133
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 2
+pop this 1
+label IF_FALSE2
+push pointer 0
+call Pong.move_paddle 1
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

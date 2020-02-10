@@ -1,0 +1,52 @@
+/** Provides the ball class. For now the ball will do nothing besides fall. The ball will have a default radius of 5.
+
+class Ball{
+	field int x_cord;
+
+	field int y_cord;
+
+	field int radius;
+
+	// Returns a ball at position (a,b)
+	constructor Ball new(int a, int b,int size){
+		let x_cord = a;
+		let y_cord = b;
+		let radius = size;
+	}
+
+	// Disposes the ball object
+	method void dispose(){
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	// Draws the ball object on the screen
+	method void draw(){
+		do Screen.setColor(true);
+		do Screen.drawCircle(x_cord,y_cord,radius);
+	}
+
+	// Erases the ball object on the screen
+	method void erase(){
+		do Screen.setColor(false);
+		do Screen.drawCircle(x_cord,y_cord,radius);
+	}
+
+	// Move the ball up
+	method void move_up(){
+		if((y_cord + radius) > 1){
+			do Ball.erase();
+			let y =  y - 2;
+			do Ball.draw();
+		}
+	}
+
+	// Moves the ball down
+	method void move_down(){
+		if((y_cord + radius)< 254){
+			do Ball.erase();
+			let y = y + 2;
+			do Ball.draw();
+		}
+	}
+}

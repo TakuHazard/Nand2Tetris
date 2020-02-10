@@ -1,0 +1,72 @@
+
+/** This is the paddle class. It will consist of the paddle itself and the essential paddle operations : namely move right and move left. */
+
+/* The paddle will have a fixed size and so just need the center and not the size. THe paddle will have a size of 30 pixels width and 10 pixels height.
+
+class Paddle{
+/**
+	field int x_cord; // the position of the x_cord; // this is what will be changed by the player
+	field int y_cord; // the position of the y_cord; // set default to 500
+
+	field int size; // the size of the paddle. Default will be 10
+
+	 //returns a new paddle object
+	constructor Paddle(int x_in, int y_in, int size_in){
+		let x_in = x_cord;
+		let y_in = y_cord;
+		let size = size_in;
+		
+	}
+
+	// disposes of the game object
+	method void dispose(){
+		do Memory.deAlloc(this);
+		return;
+	}
+
+
+	// moves the paddle to the right 5 pixels at a time
+
+	method void move_right() {
+		if((x + size) < 510){
+			do Screen.setColor(false);
+			do Screen.drawRectangle(x,y, x + 1, y + size);
+			let x = x + 2;
+			do Screen.setColor(true);
+			do Screen.drawRectangle((x+size)-1, y, x + size, y + size);
+		}
+
+		return
+	}
+
+	// moves the paddle to the left 5 pixels at a time
+
+	method void move_left() {
+		if(x > 1){
+			do Screen.setColor(false);
+			do Screen.drawRectangle((x+size) - 1, y, x + size,  y + size);
+			let x = x - 2;
+			do Screen.setColor(true);
+			do Screen.drawRectangle(x, y, x + 1, y + size);
+
+		}
+
+		return;
+	}
+
+	// draws the paddle on the screen
+	method void draw() {
+		do Screen.setColor(true);
+		do Screen.drawRectangle(x, y, x + size, y + size);
+		return;
+	}
+
+	method void erase() // erases the paddle currently on the screen(){
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, y, x + size, y + size);
+		return;
+	}
+
+	*/
+
+}
